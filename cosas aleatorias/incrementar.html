@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        #numero {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Ejercicio Incrementar</h1>
+    <p>
+        <button onclick="Incrementar()">Incrementar</button>
+        <span id="numero">0</span>
+    </p>
+    <script>
+        const spanNumero = document.getElementById('numero');
+        function Incrementar() {
+            spanNumero.textContent++;
+        }
+    </script>
+</body>
+
+</html>
