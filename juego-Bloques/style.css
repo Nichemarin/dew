@@ -1,0 +1,26 @@
+#container{
+    background-color: black;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.block{
+    width: 15px;
+    height: 30px;
+    background-color: blue;
+    cursor: pointer;
+    border: 1px solid white;
+}
+
+.blue{
+    background-color: blue;
+}
+
+.red{
+    background-color: red;
+}
+
+.green{
+    background-color: green;
+}
