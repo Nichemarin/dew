@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Añadir EventListener</h1>
+    <p>Crea una función que devuelva por consola un saludo.
+        Añade dicha función con EventListener al pulsar un botoón,
+        una imagen y un texto dentro de un párrafo</p>
+        <h2>Modifica para que el evento de la imagen sea pasar por encima y no al pulsar</h2>
+        <h3>Añade un enlace a otra página y añade la fucionalidad de saludo al pulsar el enlace</h3>
+    <button>Saludo</button>
+    <img src="https://imgs.search.brave.com/e_ArGqkzPYcSJAInpyN1qlHAMia2fTXqUWmnmNcvaS4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE2/NzIyNjg5MzA5MjMt/MDcyNzgwNTViMWJi/P2ZtPWpwZyZxPTYw/Jnc9MzAwMCZhdXRv/PWZvcm1hdCZmaXQ9/Y3JvcCZpeGxpYj1y/Yi00LjEuMCZpeGlk/PU5Id3hNakEzZkRB/PQ"
+        alt="" height="50px", width="50px">
+    <p>Pulsa para un saludo</p>
+    <a href="https://www.google.com/?hl=es" target="_blank">Enlace</a>
+    <script>
+        const boton = document.querySelector("button");
+        const imagen = document.querySelector("img");
+        const parrafo = document.querySelectorAll("p");
+        const enlace = document.querySelector("a");
+
+        boton.addEventListener("click", saludo);
+        imagen.addEventListener("mouseover", saludo);
+        parrafo[1].addEventListener("click", saludo);
+        enlace.addEventListener("click", saludo);
+
+        function saludo() {
+            console.log("Hola");
+        }
+    </script>
+</body>
+
+</html>
