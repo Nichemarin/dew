@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Target vs CurrentTarget</h1>
+    <h1>Propagación</h1>
+    <section>
+        <h1>Section</h1>
+        <article>
+            <h2>Article</h2>
+            <div>
+                <h3>div</h3>
+                <button>Button</button>
+            </div>
+        </article>
+    </section>
+    <p>Pulsa en cualquier parte de este párrafo para <strong>eliminar</strong> todo el párrafo</p>
+    <script>
+        document.querySelector("section").addEventListener("click", (event) => {
+            console.log("Objeto que recibe el evento: ", event.target);
+            console.log("Obbjeto que tiene el eventListener: ", event.currentTarget);
+        });
+
+        document.querySelector("p").addEventListener("click", (event) => event.currentTarget.remove());
+    </script>
+</body>
+</html>

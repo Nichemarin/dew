@@ -1,0 +1,180 @@
+:root {
+    --fondo: #e8edf1;
+    --papel: #ffffff;
+    --tinta: #1b2a33;
+    --azul: #012b79;
+    --linea: #d5dde3;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px 15px;
+    background-color: var(--fondo);
+    color: var(--tinta);
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+#container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: var(--papel);
+    border-top: 5px solid var(--azul);
+    border-radius: 5px;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 36px;
+}
+
+h3 {
+    margin-top: 30px;
+    color: var(--azul);
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--linea);
+    margin: 15px 0;
+}
+
+#formulario form {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 15px;
+    align-items: end;
+}
+
+#formulario p {
+    margin: 0;
+}
+
+#formulario label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#formulario input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--linea);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#formulario input:focus {
+    outline: 2px solid var(--azul);
+}
+
+#formulario button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--azul);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#formulario button:hover {
+    background-color: #153a68;
+}
+
+#container > form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+#container > form input[type="radio"] {
+    display: none;
+}
+
+#container > form input[type="radio"] + label {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 1px solid var(--linea);
+    border-radius: 20px;
+    background-color: white;
+    cursor: pointer;
+}
+
+#container > form input[type="radio"] + label:hover {
+    background-color: #eaf1f8;
+}
+
+#container > form input[type="radio"]:checked + label {
+    background-color: var(--azul);
+    color: white;
+    border-color: var(--azul);
+}
+
+#tabla {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+th.azul {
+    background-color: var(--azul);
+    color: white;
+}
+
+td {
+    border-bottom: 1px solid var(--linea);
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f5f8fa;
+}
+
+tbody tr:hover {
+    background-color: #eaf1f8;
+}
+
+th:nth-child(n+2):nth-child(-n+4),
+td:nth-child(n+2):nth-child(-n+4) {
+    text-align: right;
+}
+
+th:last-child,
+td:last-child {
+    text-align: center;
+}
+
+td button {
+    padding: 5px 12px;
+    border: 1px solid #b3261e;
+    border-radius: 5px;
+    background-color: white;
+    color: #b3261e;
+    cursor: pointer;
+}
+
+td button:hover {
+    background-color: #b3261e;
+    color: white;
+}
+
+tfoot td {
+    border-top: 2px solid var(--tinta);
+    font-weight: bold;
+}

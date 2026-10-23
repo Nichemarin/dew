@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Teclado</h1>
+    <h2>Tecla pulsada: <span id="key-press"></span></h2>
+    <p>Escribe tu nombre:
+        <input type="text" name="nombre">
+    </p>
+    <script>
+        const spanKeyPress = document.getElementById("key-press");
+
+        window.addEventListener("keydown", (event) => {
+            spanKeyPress.textContent = event.key;
+            console.log("Control: ", event.ctrlKey, "Alt: ", event.altKey);
+
+            if(event.key === "x" && event.ctrlKey){
+                alert("Pero tu ere' un tiguere tu no ta' copiando na'")
+            }
+        });
+
+        const inputNombre = document.getElementsByName("nombre")[0];
+
+        inputNombre.addEventListener("keyup", (event) => {
+            inputNombre.value = inputNombre.value.toUpperCase();
+        });
+    </script>
+</body>
+</html>
