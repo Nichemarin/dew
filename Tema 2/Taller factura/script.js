@@ -1,105 +1,102 @@
-const inputDescripcion = document.getElementById("descripcion");
-const inputCantidad = document.getElementById("cantidad");
-const inputPrecio = document.getElementById("precio");
-const botonInsertar = document.getElementById("insertar");
-const tbody = document.getElementById("productos");
-const radiosImpuesto = document.querySelectorAll("input[name='impuesto']");
+const formProducto = document.getElementById("form-producto");
+const table = document.getElementById("productos");
+const allTaxes = document.querySelectorAll("#taxes input");
 
-const spanSubtotal = document.getElementById("subtotal");
-const spanTasa = document.getElementById("tasa");
-const spanImpuestos = document.getElementById("impuestos");
-const spanTotal = document.getElementById("total");
-
-
-let tasaActiva = 0;
-let lineas = [];
-let siguienteId = 1;
-
-function formatearMoneda(valor) {
-  const centimos = Math.floor(valor * 100 + 0.5);
-  const euros = Math.floor(centimos / 100);
-  const resto = centimos % 100;
-  if (resto < 10) {
-    return euros + ".0" + resto + "€";
-  }
-  return euros + "." + resto + "€";
-}
-
-function crearCelda(texto) {
-  const td = document.createElement("td");
-  td.textContent = texto;
-  return td;
-}
-
-function insertarProducto() {
-  const concepto = inputDescripcion.value.trim();
-  const cantidad = Number(inputCantidad.value);
-  const precio = Number(inputPrecio.value);
-
-  if (
-    concepto === "" ||
-    inputPrecio.value === "" ||
-    isNaN(cantidad) ||
-    isNaN(precio) ||
-    cantidad < 1 ||
-    precio < 0
-  ) {
-    alert("Rellena todos los campos con valores válidos.");
-    return;
-  }
-
-  const precioTotal = cantidad * precio;
-  const id = siguienteId;
-  siguienteId++;
-
-  const fila = document.createElement("tr");
-  fila.appendChild(crearCelda(concepto));
-  fila.appendChild(crearCelda(cantidad));
-  fila.appendChild(crearCelda(formatearMoneda(precio)));
-  fila.appendChild(crearCelda(formatearMoneda(precioTotal)));
-
-  const celdaEliminar = document.createElement("td");
-  const botonEliminar = document.createElement("button");
-  botonEliminar.textContent = "X";
-  botonEliminar.onclick = () => eliminarProducto(fila, id);
-  celdaEliminar.appendChild(botonEliminar);
-  fila.appendChild(celdaEliminar);
-
-  tbody.appendChild(fila);
-  lineas.push({ id: id, total: precioTotal });
-
-  inputDescripcion.value = "";
-  inputCantidad.value = "";
-  inputPrecio.value = "";
-
-  recalcularTotales();
-}
-
-function recalcularTotales() {
-  const subtotal = lineas.reduce((suma, linea) => suma + linea.total, 0);
-  const impuestos = (subtotal * tasaActiva) / 100;
-  const total = subtotal + impuestos;
-
-  spanSubtotal.textContent = formatearMoneda(subtotal);
-  spanTasa.textContent = tasaActiva + "%";
-  spanImpuestos.textContent = formatearMoneda(impuestos);
-  spanTotal.textContent = formatearMoneda(total);
-}
-
-function cambiarTasa(event) {
-  tasaActiva = Number(event.target.value);
-  recalcularTotales();
-}
-
-function eliminarProducto(fila, id) {
-  fila.remove();
-  lineas = lineas.filter((linea) => linea.id !== id);
-  recalcularTotales();
-}
-
-botonInsertar.addEventListener("click", insertarProducto);
-radiosImpuesto.forEach((radio) => {
-  radio.addEventListener("click", cambiarTasa);
+allTaxes.forEach((taxBtn) => {
+  taxBtn.addEventListener("change", recalculateTotal);
 });
 
-recalcularTotales();
+formProducto.addEventListener("submit", readValues);
+
+function readValues(e) {
+  e.preventDefault(); 
+  const description = document.getElementById("descripcion").value;
+  const quantity = document.getElementById("cantidad").value;
+  const price = document.getElementById("precio").value;
+
+  const total = totalPrice(quantity, price);
+  createNewRow(description, quantity, price, total);
+  cleanInput();
+  recalculateTotal();
+}
+
+function totalPrice(quantity, price) {
+  return quantity * price;
+}
+
+function createNewRow(description, quantity, price, total) {
+  const newTr = document.createElement("tr");
+  const content = [description, quantity, price, total];
+  const eliminateBtn = document.createElement("button");
+
+  content.forEach((contenido) => {
+    const newTd = document.createElement("td");
+    newTd.textContent = contenido;
+    newTr.appendChild(newTd);
+  });
+
+  const eliminatetd = document.createElement("td");
+  eliminateBtn.textContent = "X";
+
+  eliminateBtn.addEventListener("click", () => {
+    newTr.remove();
+    recalculateTotal();
+  });
+
+  eliminatetd.appendChild(eliminateBtn);
+  newTr.appendChild(eliminatetd);
+
+  table.appendChild(newTr);
+}
+
+function cleanInput() {
+  formProducto.reset();
+}
+
+function recalculateTotal() {
+  let subTotal = 0;
+  let taxRate = taxes();
+  const rows = document.querySelectorAll("tbody tr");
+  rows.forEach((totalRow) => {
+    const totalColumn = totalRow.querySelectorAll("td");
+    let x = totalColumn[3].textContent;
+    x = parseFloat(x);
+    subTotal += x;
+  });
+  const taxesValue = taxRate * subTotal;
+  const total = subTotal + taxesValue;
+  showStats(subTotal, taxRate, taxesValue, total);
+  return total;
+}
+
+function taxes() {
+  const fivePercentTax = document.getElementById("5percent");
+  const TenPercentTax = document.getElementById("10percent");
+  const FifteenteenPercentTax = document.getElementById("15percent");
+  const TwentyPercentTax = document.getElementById("20percent");
+
+  let percent = 0;
+
+  if (fivePercentTax.checked) {
+    percent = 0.05;
+  } else if (TenPercentTax.checked) {
+    percent = 0.1;
+  } else if (FifteenteenPercentTax.checked) {
+    percent = 0.15;
+  } else if (TwentyPercentTax.checked) {
+    percent = 0.2;
+  }
+  return percent;
+}
+
+function showStats(subTotal, taxes, taxesValue, total) {
+  const subTotalSpan = document.getElementById("subtotal");
+  const taxesSpan = document.getElementById("tasa");
+  const TaxesValueSpan = document.getElementById("impuestos");
+  const totalSpan = document.getElementById("total");
+
+  subTotalSpan.textContent = subTotal.toFixed(2) + " €";
+  taxesSpan.textContent = (taxes * 100) + "%";
+  TaxesValueSpan.textContent = taxesValue.toFixed(2) + " €";
+  totalSpan.textContent = total.toFixed(2) + " €";
+}

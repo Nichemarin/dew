@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taller</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -19,7 +20,7 @@
         </div>
 
         <div id="formulario">
-            <form>
+            <form id="form-producto">
                 <p>
                     <label for="descripcion">Concepto:</label>
                     <input type="text" id="descripcion" name="descripcion" required>
@@ -35,15 +36,15 @@
                     <input type="number" id="precio" name="precio" min="0" step="0.01" required>
                 </p>
 
-                <button type="button" id="insertar">Insertar</button>
+                <button type="submit" id="insertar">Insertar</button>
             </form>
 
             <h3>Seleccionar impuestos</h3>
             <hr>
         </div>
 
-        <form>
-            <input type="radio" id="5percent" name="impuesto" value="5">
+        <form id="taxes">
+            <input type="radio" id="5percent" name="impuesto" value="5" checked>
             <label for="5percent">5%</label>
 
             <input type="radio" id="10percent" name="impuesto" value="10">
@@ -73,18 +74,27 @@
 
                 <tbody id="productos">
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">Subtotal: </td>
+                        <td colspan="2"><span id="subtotal">0.00€</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Tasa: </td>
+                        <td colspan="2"><span id="tasa">5%</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Impuestos: </td>
+                        <td colspan="2"><span id="impuestos">0.00€</span></td>
+                    </tr>
+                    <tr id="finalTotal">
+                        <td colspan="3"><strong>TOTAL: </strong></td>
+                        <td colspan="2"><strong><span id="total">0.00€</span></strong></td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
-
-        <div id="resumen">
-            <p>Subtotal: <span id="subtotal">0.00€</span></p>
-            <p>Tasa: <span id="tasa">0%</span></p>
-            <p>Impuestos: <span id="impuestos">0.00€</span></p>
-            <p><strong>TOTAL: <span id="total">0.00€</span></strong></p>
-        </div>
     </div>
-
-    <script src="script.js"></script>
 </body>
 
 </html>
