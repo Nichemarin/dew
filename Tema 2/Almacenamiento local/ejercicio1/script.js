@@ -1,6 +1,6 @@
+
 const form = document.querySelector("form");
 form.addEventListener("submit", saveData);
-
 
 function saveData(e) {
   e.preventDefault();

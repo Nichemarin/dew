@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input:user-invalid {
+            background-color: lightcoral;
+        }
+
+        *:user-valid {
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Formulario básico</h1>
+    <form action="" id="form-basico">
+        <p>
+            <label for="name">Nombre</label>
+            <input type="text" name="name" id="name" required maxlength="20" pattern="\w{3,20}">
+        </p>
+        <p>
+            <label for="age">Edad</label>
+            <input type="number" name="age" id="age" required min="18" max="99">
+        </p>
+        <p>
+            <input type="submit" value="Enviar">
+        </p>
+    </form>
+    <script>
+        const form = document.getElementById("form-basico");
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            console.log("Chequeando");
+
+            const formData = new FormData(form);
+
+            if (formData.get("age") % 2 == 0){
+                console.log("es par");
+                form.submit();
+            }else{
+                console.log("no es par");
+            }
+        })
+    </script>
+</body>
+
+</html>
