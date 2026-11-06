@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        input:checked {
+            accent-color: red;
+            margin-left: 15px;
+        }
+
+
+    </style>
 </head>
+
 <body>
     <h1>Formulario con checkbox, radio y select</h1>
     <form action="" id="form-intermedio">
@@ -13,11 +23,78 @@
             <input type="checkbox" name="member" id="member">
             <label for="member">Socio</label>
         </p>
+        <p>
+            Elige tu módulo preferido
+            <input type="radio" name="modulo" id="dew" value="DEW" required>
+            <label for="dwe">DEW</label>
+            |
+            <input type="radio" name="modulo" id="dsw" value="DSW" checked>
+            <label for="dsw">DSW</label>
+            |
+            <input type="radio" name="modulo" id="dpl" value="DPL">
+            <label for="dpl">DPL</label>
+            |
+            <input type="radio" name="modulo" id="dor" value="DOR">
+            <label for="dor">DOR</label>
+            |
+            <input type="radio" name="modulo" id="python" value="Python">
+            <label for="python">Python</label>
+        </p>
+        <p>
+            ¿Qué es lo que más te gusta el módulo?
+        <ul>
+            <li>
+                <input type="checkbox" name="like[]" id="like-teacher" value="teacher">
+                <label for="like-teacher">El profesor</label>
+            </li>
+            <li>
+                <input type="checkbox" name="like[]" id="like-content" value="content">
+                <label for="like-content">El contenido</label>
+            </li>
+            <li>
+                <input type="checkbox" name="like[]" id="like-copy" value="copy">
+                <label for="like-copy">Que me deja copiarme</label>
+            </li>
+        </ul>
+        </p>
+        <p><label for="curso">En qué curso esta?</label>
+            <select name="curso" id="curso" multiple>
+                <option value="DEW">Desarrollo en entorno del cliente</option>
+                <option value="DSW">Desarrollo en entorno del servidor</option>
+                <option value="DOR">Desarrollo de interfaces</option>
+            </select>
+        </p>
+        <p>
+            Documento:
+            <input type="file" name="document" id="" multiple>
+        </p>
+        <p>
+            <button type="submit">Enviar</button>
+        </p>
+        <p >Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa, nesciunt, repellat facilis omnis inventore itaque quas similique minima dolore porro, vero ea quia magnam sequi. Dolor magnam minima iusto impedit?</p>
     </form>
     <script>
         const form = document.getElementById("form-intermedio");
 
-        const formData = new FormData(form);
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const likes = formData.getAll("like[]");
+            const documents = formData.get("document");
+
+            if (!formData.get("member")) {
+                alert("Tienes que ser miembro");
+                return;
+            } 
+            if (likes.length == 0){
+                alert("Debes tener algun like");
+                return;
+            }
+
+            form.submit();
+        });
     </script>
 </body>
+
 </html>
